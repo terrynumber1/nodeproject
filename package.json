@@ -1,0 +1,23 @@
+{
+  "name": "meadowlark",
+  "version": "1.0.0",
+  "description": "",
+  "main": "meadowlark.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/terrynumber1/nodeproject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/terrynumber1/nodeproject/issues"
+  },
+  "homepage": "https://github.com/terrynumber1/nodeproject",
+  "dependencies": {
+    "express": "^4.10.1",
+    "express3-handlebars": "^0.5.2"
+  }
+}
