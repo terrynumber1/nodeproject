@@ -1,8 +1,16 @@
 var express = require('express');
 var app = express();
 
+var fortunes = [
+	"Conquer your fears or they will conquer you", 
+	"Rivers need springs",
+	"Do not fear what you don't know",
+	"You will have a pleasant surprises",
+	"Whenever possible, keep it simple"
+];
+
 // set up handlebars view engine
-var handlebars = require('express3-handlebars')
+var handlebars = require('express3-handlebars') 
 .create({ defaultLayout:'main' });
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
@@ -12,7 +20,7 @@ app.set('port', process.env.PORT || 3000);
 
 // === Static Middleware===
 // === static middleware has the same effect as creating a route for each static file
-app.use(express.static(__dirname + 'public'));
+app.use(express.static(__dirname + '/public'));
 
 // === Routes ===
 app.get('/', function(req, res) {
@@ -20,7 +28,8 @@ app.get('/', function(req, res) {
 });
 
 app.get('/about', function(req, res) {
-	res.render('about');
+	var randomFortune = fortunes[Math.floor( Math.random() * fortunes.length )];
+	res.render('about', { fortune1: randomFortune});
 });
 
 // 404 catch-all handler (middleware)
