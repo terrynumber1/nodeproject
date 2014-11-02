@@ -1,13 +1,9 @@
 var express = require('express');
 var app = express();
 
-var fortunes = [
-	"Conquer your fears or they will conquer you", 
-	"Rivers need springs",
-	"Do not fear what you don't know",
-	"You will have a pleasant surprises",
-	"Whenever possible, keep it simple"
-];
+// we prefix our module name with ./. This signals to Node that it should not
+// look for the module in the node_modules directory
+var fortuneModule = require('./library/fortune.js');
 
 // set up handlebars view engine
 var handlebars = require('express3-handlebars') 
@@ -28,8 +24,8 @@ app.get('/', function(req, res) {
 });
 
 app.get('/about', function(req, res) {
-	var randomFortune = fortunes[Math.floor( Math.random() * fortunes.length )];
-	res.render('about', { fortune1: randomFortune});
+	
+	res.render('about', { fortune1: fortuneModule.getFortune() } );
 });
 
 // 404 catch-all handler (middleware)
