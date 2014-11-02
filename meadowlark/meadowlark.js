@@ -28,6 +28,15 @@ app.get('/about', function(req, res) {
 	res.render('about', { fortune1: fortuneModule.getFortune() } );
 });
 
+// Route for displaying request header
+app.get('/headers', function(req, res) {
+	res.set('Content-Type', 'text/plain');
+	var s = '';
+	for(var name in req.headers)
+		s += name + ': ' + req.headers[name] + '\n';
+	res.send(s);
+});
+
 // 404 catch-all handler (middleware)
 app.use(function(req, res, next){
 	res.status(404);
