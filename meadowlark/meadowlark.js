@@ -6,8 +6,7 @@ var app = express();
 var fortuneModule = require('./library/fortune.js');
 
 // set up handlebars view engine
-var handlebars = require('express3-handlebars') 
-.create({ defaultLayout:'main' });
+var handlebars = require('express3-handlebars').create({ defaultLayout:'main' });
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
@@ -49,6 +48,9 @@ app.use(function(err, req, res, next){
 	res.status(500);
 	res.render('500');
 });
+
+// Disabling Express’s default X-Powered-By header
+app.disable('x-powered-by');
 
 app.listen(app.get('port'), function(){
 	console.log( 'Express started on http://localhost:' +
