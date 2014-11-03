@@ -17,14 +17,53 @@ app.set('port', process.env.PORT || 3000);
 // === static middleware has the same effect as creating a route for each static file
 app.use(express.static(__dirname + '/public'));
 
+// Dummy weather data
+function getWeatherData(){
+	return {
+		locations: [
+		{
+			name: 'Portland',
+			forecastUrl: 'http://www.wunderground.com/US/OR/Portland.html',
+			iconUrl: 'http://icons-ak.wxug.com/i/c/k/cloudy.gif',
+			weather: 'Overcast',
+			temp: '54.1 F (12.3 C)',
+		},
+		{
+			name: 'Bend',
+			forecastUrl: 'http://www.wunderground.com/US/OR/Bend.html',
+			iconUrl: 'http://icons-ak.wxug.com/i/c/k/partlycloudy.gif',
+			weather: 'Partly Cloudy',
+			temp: '55.0 F (12.8 C)',
+		},
+		{
+			name: 'Manzanita',
+			forecastUrl: 'http://www.wunderground.com/US/OR/Manzanita.html',
+			iconUrl: 'http://icons-ak.wxug.com/i/c/k/rain.gif',
+			weather: 'Light Rain',
+			temp: '55.0 F (12.8 C)',
+		},
+		],
+	};
+}
+
+// Running weather widget
+app.use(function(req, res, next){
+	if(!res.locals.partials) 
+		res.locals.partials = {};
+
+	res.locals.partials.weather = getWeatherData();
+	next();
+});
+
 // === Routes ===
 app.get('/', function(req, res) {
 	res.render('home');
 });
 
-app.get('/about', function(req, res) {
-	
+app.get('/about', function(req, res) {	
 	res.render('about', { fortune1: fortuneModule.getFortune() } );
+	// If you don't want to use layout
+	// res.render('about', { layout: null } );
 });
 
 // Route for displaying request header
@@ -52,7 +91,9 @@ app.use(function(err, req, res, next){
 // Disabling Express’s default X-Powered-By header
 app.disable('x-powered-by');
 
+// Running Node server on port 3000
 app.listen(app.get('port'), function(){
 	console.log( 'Express started on http://localhost:' +
 		app.get('port') + '; press Ctrl-C to terminate.' );
 });
+
