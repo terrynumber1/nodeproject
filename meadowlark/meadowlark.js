@@ -66,7 +66,7 @@ app.use(function(req, res, next){
 	next();
 });
 
-// === Routes ===
+// ROUTES
 app.get('/', function(req, res) {
 	res.render('home');
 });
@@ -75,6 +75,10 @@ app.get('/about', function(req, res) {
 	res.render('about', { fortune1: fortuneModule.getFortune() } );
 	// If you don't want to use layout
 	// res.render('about', { layout: null } );
+});
+
+app.get('/jquery-test', function(req, res) {
+	res.render('jquery-test');
 });
 
 // Route for displaying request header
