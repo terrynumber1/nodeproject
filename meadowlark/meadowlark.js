@@ -110,6 +110,16 @@ app.post('/process', function(req, res) {
 	res.redirect(303, '/thank-you');
 });
 
+app.post('/process', function(res, req) {
+	if(req.xhr || req.accepts('json, html') === 'json') {
+		// if there were an error, we would send {error: 'error description'}
+		res.send({sucess: true});
+	} else {
+		// if there were an error, we would redirect to an error page
+		res.redirect(303, '/thank-you');
+	}
+});
+
 // Route for displaying request header
 app.get('/headers', function(req, res) {
 	res.set('Content-Type', 'text/plain');
