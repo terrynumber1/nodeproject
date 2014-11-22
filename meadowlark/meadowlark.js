@@ -81,6 +81,20 @@ app.get('/jquery-test', function(req, res) {
 	res.render('jquery-test');
 });
 
+app.get('/nursery-rhyme', function(req, res) {
+	res.render('nursery-rhyme');
+});
+
+app.get('nursery-rhyme', function(req, res) {
+	res.json({
+		animal: 'squirrel',
+		bodyPart: 'tail',
+		adjective: 'bushy',
+		noun: 'heck',
+	});
+});
+
+
 // Route for displaying request header
 app.get('/headers', function(req, res) {
 	res.set('Content-Type', 'text/plain');
