@@ -27,6 +27,8 @@ app.set('port', process.env.PORT || 3000);
 // === Static Middleware===
 // === static middleware has the same effect as creating a route for each static file
 app.use(express.static(__dirname + '/public'));
+app.use(require('body-parser')());
+
 
 // Dummy weather data
 function getWeatherData(){
@@ -94,6 +96,19 @@ app.get('nursery-rhyme', function(req, res) {
 	});
 });
 
+app.get('/newsletter', function(req, res) {
+	// we will learn about CSRF later.. for now, we just
+	// provide a dummy value
+	res.render('newsletter', { csfr: 'CSRF token goes here'});
+});
+
+app.post('/process', function(req, res) {
+	console.log('Form (from querystring): ' + req.query.form);
+	console.log('CSRF token (from hidden form filed): ' + req.body._csrf);
+	console.log('Name (from visible form field): ' + req.body.name);
+	console.log('Email (from visible form field) : ' + req.body.email);
+	res.redirect(303, '/thank-you');
+});
 
 // Route for displaying request header
 app.get('/headers', function(req, res) {
