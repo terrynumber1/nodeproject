@@ -1,9 +1,12 @@
-var express = require('express');
+var express = require('express'),
+	fortune = require('./library/fortune.js'),
+	formidable = require('formidable');
+
 var app = express();
 
 // we prefix our module name with ./. This signals to Node that it should not
 // look for the module in the node_modules directory
-var fortuneModule = require('./library/fortune.js');
+
 
 // set up handlebars view engine
 var handlebars = require('express3-handlebars').create({
@@ -21,7 +24,6 @@ var handlebars = require('express3-handlebars').create({
 app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 
-
 app.set('port', process.env.PORT || 3000);
 
 // === Static Middleware===
@@ -29,6 +31,10 @@ app.set('port', process.env.PORT || 3000);
 app.use(express.static(__dirname + '/public'));
 app.use(require('body-parser')());
 
+// set 'showTests' context property if the querystring contains test=1
+app.use(function(req, res, next) {
+	res.locals.showTests = app.get('env') !== 'production' && next();
+});
 
 // Dummy weather data
 function getWeatherData(){
@@ -79,6 +85,18 @@ app.get('/about', function(req, res) {
 	// res.render('about', { layout: null } );
 });
 
+app.get('/tours/hood-river', function(req, res) {
+	res.render('/tours/hood-river');
+});
+
+app.get('/tours/oregon-coast', function(req, res) {
+	res.render('tours/oregon-coast');
+});
+
+app.get('/tours/request-group-rate', function(req, res) {
+	res.render('tours/request-group-rate');
+});
+
 app.get('/jquery-test', function(req, res) {
 	res.render('jquery-test');
 });
@@ -96,18 +114,14 @@ app.get('nursery-rhyme', function(req, res) {
 	});
 });
 
+app.get('/thank-you', function(req, res) {
+	res.render('thank-you');
+});
+
 app.get('/newsletter', function(req, res) {
 	// we will learn about CSRF later.. for now, we just
 	// provide a dummy value
 	res.render('newsletter', { csfr: 'CSRF token goes here'});
-});
-
-app.post('/process', function(req, res) {
-	console.log('Form (from querystring): ' + req.query.form);
-	console.log('CSRF token (from hidden form filed): ' + req.body._csrf);
-	console.log('Name (from visible form field): ' + req.body.name);
-	console.log('Email (from visible form field) : ' + req.body.email);
-	res.redirect(303, '/thank-you');
 });
 
 app.post('/process', function(res, req) {
@@ -120,14 +134,29 @@ app.post('/process', function(res, req) {
 	}
 });
 
-// Route for displaying request header
-app.get('/headers', function(req, res) {
-	res.set('Content-Type', 'text/plain');
-	var s = '';
-	for(var name in req.headers)
-		s += name + ': ' + req.headers[name] + '\n';
-	res.send(s);
+app.get('/contest/vacation-photo', function(req, res) {
+	var now = new Date();
+	res.render('contest/vacation-photo',
+		{ year: now.getFullYear(),
+		  month: now.getMonth()
+		});
 });
+
+app.post('/contest/vacation-photo/:year/:month', function(req, res) {
+	var form = new formidable.IncomingForm();
+	form.parse(req, function(err, fields, files) {
+		if(err) 
+			return res.redirect(303, 'error');
+		console.log('received fields:');
+		console.log(fields);
+		console.log('received files:');
+		console.log(files);
+		res.redirect(303, '/thank-you');
+	})
+})
+
+// ====================================
+// ====================================
 
 // 404 catch-all handler (middleware)
 app.use(function(req, res, next){
@@ -140,6 +169,15 @@ app.use(function(err, req, res, next){
 	console.error(err.stack);
 	res.status(500);
 	res.render('500');
+});
+
+// Route for displaying request header
+app.get('/headers', function(req, res) {
+	res.set('Content-Type', 'text/plain');
+	var s = '';
+	for(var name in req.headers)
+		s += name + ': ' + req.headers[name] + '\n';
+	res.send(s);
 });
 
 // Disabling Express’s default X-Powered-By header
