@@ -1,7 +1,9 @@
 var express = require('express');
 var app = express();
-var fortuneModule = require('./lib/fortuneModule.js');
 // ./ This signals to Node that it should not look for the module in the node_modules directory;
+var fortuneModule = require('./lib/fortuneModule.js');
+// Vacation database schema
+var Vacation = require('./models/vacation.js');
 
 // set up handlebars view engine
 var handlebars = require('express3-handlebars')
