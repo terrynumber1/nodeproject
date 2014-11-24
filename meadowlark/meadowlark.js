@@ -1,5 +1,7 @@
 var express = require('express');
 var app = express();
+var fortuneModule = require('./lib/fortuneModule.js');
+// ./ This signals to Node that it should not look for the module in the node_modules directory;
 
 // set up handlebars view engine
 var handlebars = require('express3-handlebars')
@@ -13,14 +15,6 @@ app.set('port', process.env.PORT || 3000);
 // page 26, static middleware
 app.use(express.static(__dirname + '/public'));
 
-var fortuneCookies = [
-  "Conquer your fears or they will conquer you.",
-  "Rivers need springs.",
-  "Do not fear what you don't know.",
-  "You will have a pleasant surprise.",
-  "Whenever possible, keep it simple.",
-];
-
 // ============
 // ===== Routes =====
 // ============
@@ -33,12 +27,10 @@ app.get('/', function(req, res) {
 });
 
 app.get('/about', function(req, res) {
-  var randomFortune =
-    fortuneCookies[Math.floor(Math.random() * fortuneCookies.length)];
   // res.type('text/plain');
   // res.send('About Meadowlark');
   // res.render('about'); // render about.handlebars
-  res.render('about', {fortune: randomFortune}); // about.handlebars, {{fortune}}
+  res.render('about', {fortune: fortuneModule.getFortune() }); // about.handlebars, {{fortune}}
 });
 
 // in Express, the order of Routes and Middleware are significant
