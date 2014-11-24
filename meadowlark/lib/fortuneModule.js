@@ -6,6 +6,8 @@ var fortuneCookies = [
   "Whenever possible, keep it simple.",
 ];
 
+// if you want something to be visible outside the module
+// you have to add it to EXPORTS.
 exports.getFortune = function() {
   var idx = Math.floor(Math.random() * fortuneCookies.length);
   return fortuneCookies[idx];
