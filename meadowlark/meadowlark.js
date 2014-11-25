@@ -1,9 +1,9 @@
-var express = require('express');
-var app = express();
-// ./ This signals to Node that it should not look for the module in the node_modules directory;
-var fortuneModule = require('./lib/fortuneModule.js');
-// Vacation database schema
+var express = require('express'); // ./ This signals to Node that it should not look for the module in the node_modules directory;
+var fortuneModule = require('./lib/fortuneModule.js'); // Vacation database schema
 var Vacation = require('./models/vacation.js');
+
+var app = express();
+var credentials = require('./credentials.js');
 
 // set up handlebars view engine
 var handlebars = require('express3-handlebars')
@@ -33,6 +33,67 @@ app.get('/about', function(req, res) {
   // res.send('About Meadowlark');
   // res.render('about'); // render about.handlebars
   res.render('about', {fortune: fortuneModule.getFortune() }); // about.handlebars, {{fortune}}
+});
+
+// database configuration
+var mongoose = require('mongoose');
+var options = {
+  server: {
+    socketOptions: { keepAlive: 1 }
+  }
+};
+
+mongoose.connect('mongodb://nodeuser2:nodepassword@ds053130.mongolab.com:53130/nodedatabase', options);
+
+// initialize vacations
+Vacation.find( function(err, vacations) {
+  if(vacations.length)
+    return;
+
+    new Vacation({
+      name: 'Hood River Day Trip',
+      slug: 'hood-river-day-trip',
+      category: 'Day Trip',
+      sku: 'HR199',
+      description: 'Spend a day sailing on the Columbia and ' +
+      'enjoying craft beers in Hood River!',
+      priceInCents: 9995,
+      tags: ['day trip', 'hood river', 'sailing', 'windsurfing', 'breweries'],
+      inSeason: true,
+      maximumGuests: 16,
+      available: true,
+      packagesSold: 0,
+    }).save();
+
+    new Vacation({
+      name: 'Oregon Coast Getaway',
+      slug: 'oregon-coast-getaway',
+      category: 'Weekend Getaway',
+      sku: 'OC39',
+      description: 'Enjoy the ocean air and quaint coastal towns!',
+      priceInCents: 269995,
+      tags: ['weekend getaway', 'oregon coast', 'beachcombing'],
+      inSeason: false,
+      maximumGuests: 8,
+      available: true,
+      packagesSold: 0,
+    }).save();
+
+    new Vacation({
+      name: 'Rock Climbing in Bend',
+      slug: 'rock-climbing-in-bend',
+      category: 'Adventure',
+      sku: 'B99',
+      description: 'Experience the thrill of rock climbing in the high desert.',
+      priceInCents: 289995,
+      tags: ['weekend getaway', 'bend', 'high desert', 'rock climbing', 'hiking', 'skiing'],
+      inSeason: true,
+      requiresWaiver: true,
+      maximumGuests: 4,
+      available: false,
+      packagesSold: 0,
+      notes: 'The tour guide is currently recovering from a skiing accident.',
+    }).save();
 });
 
 // in Express, the order of Routes and Middleware are significant
