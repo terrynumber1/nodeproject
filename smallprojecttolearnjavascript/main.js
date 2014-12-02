@@ -14,7 +14,7 @@ console.log(tempArray);
 
 function findReplace(oldWord, newWord) {
   var paragraph = "The quick brown fox jumped over the lazy dog.";
-  tempArray = paragraph.split(" ");
+  var tempArray = paragraph.split(" ");
 
   for (var i=0; i<tempArray.length; i++) {
     if (tempArray[i] === oldWord)
@@ -24,6 +24,87 @@ function findReplace(oldWord, newWord) {
   tempArray = tempArray.join(" ");
 }
 
+function findReplace(data, oldWord, newWord) {
+  // var paragraph = "The quick brown fox jumped over the lazy dog.";
+  var tempArray = data.split(" ");
+
+  for (var i=0; i<tempArray.length; i++) {
+    if (tempArray[i] === oldWord)
+      tempArray[i] = newWord;
+  }
+
+  data = tempArray.join(" ");
+
+  console.log(data);
+}
+
+// JSON with arrays
+// jsonlint.com
+var employees = {
+  "staff": [{
+    "firstName": "Tony",
+    "lastName": "deAraujo",
+    "age": 99
+  }, {
+    "firstName": "John",
+    "lastName": "Smith",
+    "age": 33
+  }, {
+    "firstName": "Mary",
+    "lastName": "Adams",
+    "age": 29
+  }],
+  "management": [{
+    "firstName": "Judy",
+    "lastName": "Garland",
+    "age": 43
+  }]
+};
+
+employees.staff.push(
+  {
+    "firstName": "Loren",
+    "lastName:": "Santos",
+    "age": 29
+  }
+);
+
+employees.staff.push(
+  {
+    "firstName": "Peter",
+    "lastName": "Johns",
+    "age": 55
+  }
+);
+// Pushing new object into the staff ARRAY
+
+var myString = JSON.stringify(employees);
+
+// using ARRAY to filterd out data from stringify
+var someString = JSON.stringify( employees, ["staff", "firstName"] );
+var some2String = JSON.stringify( employees, ["management", "firstName"] );
+var lastNameString = JSON.stringify( employees, ["staff", "lastName"] );
+
+// using third argument for controlling white space
+// the number 4 is the number of indented space
+var myString = JSON.stringify(employees, null , 4);
+var myString = JSON.stringify(employees, nulll, "...");
+
+// using FUNCTION as a filter to include data to stringify
+var text = JSON.stringify(employees, function(key, value) {
+  if (key === "age") // include everything except "age"
+    return undefined;
+  else
+    return value;
+});
+
+// "n/a" represents empty VALUE but the KEY still exist
+var text = JSON.stringify(employees, function(key, value) {
+  if (key === "age") // include everything except "age"
+    return "n/a";
+    else
+      return value;
+});
 
 var getNumbers = function() {
 
