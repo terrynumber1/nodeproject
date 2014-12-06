@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html ng-app ng-init='
+  colors = {
+    "green": "green is the color of balance and growth",
+    "blue": "blue is the color of trust and peace",
+    "indigo": "indigo is the color of intuition"
+  }
+'>
+<head>
+  <meta charset="UTF-8">
+
+</head>
+
+<body>
+
+  <p>The color {{colors.green}}</p>
+  <p>The color <span ng-bind="colors.blue"></span></p>
+  <p>The color {{colors.indigo}}</p>
+
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+</body>
+</html>
