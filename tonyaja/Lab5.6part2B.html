@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html ng-app>
+
+<head>
+  <meta charset="UTF-8">
+</head>
+
+
+<body>
+
+  <!-- BEGIN VIEW -->
+  <div ng-controller="mySecondController">
+    <p>If the length is {{measurements.length}} and width is {{measurements.width}}
+      the parameter is {{ measurements.length*2 + measurements.width*2 }}.
+    </p>
+  </div>
+  <!-- END VIEW -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+
+  <!-- BEGIN CONTROLLER -->
+  <script>
+  function mySecondController($scope) {
+
+    // $scope.length = 9;
+    // $scope.width = 3;
+
+    $scope.measurements = {
+      "length": 9,
+      "width": 3
+    };
+  }
+  </script>
+  <!-- END CONTROLLER -->
+
+</body>
+
+</html>
