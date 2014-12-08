@@ -1,17 +1,36 @@
 <!DOCTYPE html>
-
-<html ng-app>
-
+<html ng-app="myFirstAppModule">
 <head>
   <meta charset="UTF-8">
 </head>
-
-
 <body>
 
-  hello
+  <!--- BEGIN VIEW AREA -->
+  <div ng-controller="myFirstController">
+    <p>The color {{colors.green}}</p>
+    <p>The color {{colors.blue}}</p>
+    <p>The color {{colors.indigo}}</p>
+  </div>
+  <!-- END VIEW AREA  -->
 
+  <!-- Link to AngularJS'library: -->
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
-</body>
 
+  <!-- CONTROLLER AREA -->
+  <script>
+
+  var x = angular.module("myFirstAppModule", []);
+  x.controller("myFirstController", function($scope) {
+    $scope.colors = {
+      "green": "green is the color of balance and growth.",
+      "blue": "blue is the color of trust and peace.",
+      "indigo": "indigo is the color of intuition."
+    };
+  });
+
+  </script>
+  <!-- END CONTROLLER AREA -->
+
+
+</body>
 </html>

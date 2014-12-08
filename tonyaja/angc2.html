@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html ng-app="mySecondAppModule">
+
+<head>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+<!-- begin view -->
+<div ng-controller="mySecondController">
+  <p>
+    If the length is {{length}} and the width is {{width}},
+    the perimeter is {{length * 2 + width * 2}}.
+  </p>
+</div>
+<!-- end view -->
+
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+
+<!-- begin controller -->
+
+<script>
+
+var x = angular.module("mySecondAppModule", []);
+x.controller("mySecondController", function($scope) {
+  $scope.length = 9;
+  $scope.width = 3;
+});
+
+</script>
+
+<!-- end controller -->
+
+</body>
+
+</html>
