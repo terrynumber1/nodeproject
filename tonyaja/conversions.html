@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<html ng-app="">
+
+<head>
+  <meta charset="UTF-8">
+</head>
+
+
+<body>
+
+  <!-- <div ng-init="f=32; c=0"> -->
+  <div>
+    <div>
+      Fahrenheit to Celsius: <input type="number" ng-model="f"> {{(f-32) * 5 / 9}} celsius
+    </div>
+    <div>
+      Celsius to Fahrenheit: <input type="number" ng-model="c"> {{c * 9 / 5 + 32}} fahrenheit
+    </div>
+    <div>
+      Kelvin to Fahrenheit: <input type="number" ng-model="k"> {{ (k-273.15) * 9/5 + 32 }} fahrenheit
+    </div>
+  </div>
+
+  <!-- link to AngularJS library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+</body>
+
+</html>

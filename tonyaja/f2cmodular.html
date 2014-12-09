@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html ng-app="">
+<html ng-app="myAppModule">
 
 <head>
   <meta charset="UTF-8">
@@ -9,18 +9,16 @@
 <body>
 
   <!-- begin view -->
-
+  <div ng-controller="myController">
+    {{fahrenheit}} degrees Fahrenheit is {{result}} Celsius
+  </div>
   <!-- end view -->
 
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
 
-  <!-- begin controller -->
-  <script>
+  <!-- link to controller javascript file -->
+  <script src="myController.js"></script>
 
-
-
-  </script>
-  <!-- end controller -->
 
 </body>
 

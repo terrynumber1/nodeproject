@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html ng-app="myFirstModule">
+<head>
+  <meta charset="UTF-8">
+</head>
+<body>
+
+  <!-- view area -->
+  <div ng-controller="myFirstController">
+    <p>The color {{colors.green}}</p>
+    <p>The color {{colors.blue}}</p>
+    <p>The color {{colors.indigo}}</p>
+  </div>
+  <!-- end view area -->
+
+  <!-- link to AngularJS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+
+  <!-- controller area -->
+  <script>
+    var x = angular.module("myFirstModule", []);
+    x.controller("myFirstController", function($scope) {
+      $scope.colors = {
+        "green": "green is the color of balance and growth.",
+        "blue": "blue is the color of trust and peace.",
+        "indigo": "indigo is the color of intuition."
+      };
+    });
+  </script>
+  <!-- end controller area -->
+
+
+
+
+
+
+
+</body>
+</html>
