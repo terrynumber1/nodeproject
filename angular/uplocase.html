@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html ng-app="caseConversionApp">
+
+<head>
+  <meta charset="UTF-8">
+</head>
+
+
+<body>
+
+  <div ng-controller="ccController">
+    {{3+4}}
+    <br>
+    <label>Convert from UPPERcase to lowercase:</label>
+    <br>
+    <textarea cols="20" rows="5" ng-model="upperInput"></textarea>
+    <textarea cols="20" rows="5" readonly="readonly">{{lowerCased();}}</textarea>
+    <br>
+
+    <hr>
+    <label>Convert from lowercase to UPPERcase:</label>
+    <br>
+    <textarea cols="20" rows="5" ng-model="lowerInput"></textarea>
+    <textarea cols="20" rows="5" readonly="readonly">{{upperCased();}}</textarea>
+  </div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.15/angular.min.js"></script>
+  <script src="cccontroller.js"></script>
+</body>
+
+</html>
